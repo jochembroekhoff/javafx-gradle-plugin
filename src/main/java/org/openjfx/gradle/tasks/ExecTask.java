@@ -72,6 +72,7 @@ public class ExecTask extends DefaultTask {
             JavaFXModule.validateModules(javaFXOptions.getModules());
 
             var definedJavaFXModuleNames = new TreeSet<>(javaFXOptions.getModules());
+            System.out.println("JavaFX: defined modules: " + String.join(",", definedJavaFXModuleNames));
             if (!definedJavaFXModuleNames.isEmpty()) {
                 RunModuleOptions moduleOptions = execTask.getExtensions().findByType(RunModuleOptions.class);
                 if (moduleOptions != null) {
@@ -92,6 +93,8 @@ public class ExecTask extends DefaultTask {
                         jvmArgs.addAll(execJvmArgs);
                     }
                     jvmArgs.addAll(javaFXModuleJvmArgs);
+
+                    System.out.println("JavaFX: module path args: " + String.join(" ", javaFXModuleJvmArgs));
 
                     execTask.setJvmArgs(jvmArgs);
                 }

@@ -117,13 +117,16 @@ public class JavaFXOptions {
         clearJavaFXDependencies();
 
         String configuration = getConfiguration();
+        System.out.println("JavaFX: configuration: " + configuration);
         JavaFXModule.getJavaFXModules(this.modules).forEach(javaFXModule -> {
             if (customSDKArtifactRepository != null) {
                 project.getDependencies().add(configuration, Map.of("name", javaFXModule.getModuleName()));
             } else {
-                project.getDependencies().add(configuration,
-                        String.format("%s:%s:%s:%s", MAVEN_JAVAFX_ARTIFACT_GROUP_ID, javaFXModule.getArtifactName(),
-                                getVersion(), getPlatform().getClassifier()));
+                String dependencyString = String.format("%s:%s:%s:%s",
+                        MAVEN_JAVAFX_ARTIFACT_GROUP_ID, javaFXModule.getArtifactName(),
+                        getVersion(), getPlatform().getClassifier());
+                System.out.println("JavaFX: adding dependency " + dependencyString);
+                project.getDependencies().add(configuration, dependencyString);
             }
         });
         lastUpdatedConfiguration = configuration;

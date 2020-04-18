@@ -60,6 +60,7 @@ public enum JavaFXPlatform {
 
         for ( JavaFXPlatform platform: values()) {
             if ( platform.osDetectorId.equals(os)) {
+                System.out.println("JavaFX: platform detected: " + platform.classifier);
                 return platform;
             }
         }
